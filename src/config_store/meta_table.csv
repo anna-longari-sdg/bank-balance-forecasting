@@ -1,0 +1,14 @@
+id_table,nm_table,ds_table,tp_table,tp_source,nm_folder,nm_file,sy_separator,sy_decimal,is_active
+1,DRV_ANAG,Driver (endogenous) anagraphical data,DA_EN,CE,conto_economico,Driver_Anagrafica.csv,;,",",1
+2,DRV_VAL,Driver (endogenous) historical values,DV_EN,CE,conto_economico,Driver_Actual.csv,;,",",1
+3,ECO_ANAG,Economics anagraphical data,EA,CE,conto_economico,Economici_Anagrafica.csv,;,",",1
+4,ECO_VAL,Economics historical values,EV,CE,conto_economico,Economici_Actual.csv,;,",",1
+5,ECO_DRV_RULES,Rules to map economics and drivers,EDM,CE,conto_economico,Mappatura_Eco_Driver.csv,;,",",1
+6,ECO_BUDGET,Managerial budget,EB,CE,conto_economico,Economici_Budget.csv,;,",",1
+21,DRV_ANAG,Driver (endogenous) anagraphical data,DA_EN,CO,costi,Driver_Anagrafica.csv,;,",",1
+22,DRV_VAL,Driver (endogenous) historical values,DV_EN,CO,costi,Driver_Actual.csv,;,",",1
+23,ECO_ANAG,Economics anagraphical data,EA,CO,costi,Economici_Anagrafica.csv,;,",",1
+24,ECO_VAL,Economics historical values,EV,CO,costi,Economici_Actual.csv,;,",",1
+25,ECO_DRV_RULES,Rules to map economics and drivers,EDM,CO,costi,Mappatura_Eco_Driver.csv,;,",",1
+26,DRV_ANAG_ESO,Driver (exogenous) anagraphical data,DA_EX,CO,costi,Driver_Anagrafica_Eso.csv,;,",",1
+27,DRV_VAL_ESO,Driver (exogenous) historical values,DV_EX,CO,costi,Driver_Actual_Eso.csv,;,",",1

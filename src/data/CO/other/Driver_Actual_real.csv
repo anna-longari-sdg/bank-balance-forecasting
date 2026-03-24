@@ -1,0 +1,375 @@
+MONTH;DRV_COD;VALUE
+Gen.20;Numero Cause;6.00
+Feb.20;Numero Cause;6.00
+Mar.20;Numero Cause;8.00
+Apr.20;Numero Cause;2.00
+Mag.20;Numero Cause;5.00
+Giu.20;Numero Cause;3.00
+Lug.20;Numero Cause;2.00
+Set.20;Numero Cause;5.00
+Ott.20;Numero Cause;3.00
+Nov.20;Numero Cause;2.00
+Dic.20;Numero Cause;6.00
+Gen.21;Numero Cause;4.00
+Feb.21;Numero Cause;5.00
+Mar.21;Numero Cause;3.00
+Apr.21;Numero Cause;5.00
+Mag.21;Numero Cause;1.00
+Giu.21;Numero Cause;2.00
+Lug.21;Numero Cause;5.00
+Ago.21;Numero Cause;5.00
+Set.21;Numero Cause;4.00
+Ott.21;Numero Cause;2.00
+Nov.21;Numero Cause;8.00
+Gen.22;Numero Cause;3.00
+Feb.22;Numero Cause;7.00
+Mar.22;Numero Cause;7.00
+Apr.22;Numero Cause;5.00
+Mag.22;Numero Cause;4.00
+Giu.22;Numero Cause;4.00
+Ago.22;Numero Cause;3.00
+Set.22;Numero Cause;2.00
+Ott.22;Numero Cause;5.00
+Nov.22;Numero Cause;1.00
+Dic.22;Numero Cause;2.00
+Gen.23;Numero Cause;1.00
+Feb.23;Numero Cause;4.00
+Mar.23;Numero Cause;3.00
+Apr.23;Numero Cause;4.00
+Mag.23;Numero Cause;2.00
+Giu.23;Numero Cause;6.00
+Lug.23;Numero Cause;3.00
+Gen.20;Costo Totale;3589.70
+Feb.20;Costo Totale;21467.82
+Mar.20;Costo Totale;10257.60
+Apr.20;Costo Totale;2028.20
+Mag.20;Costo Totale;13379.20
+Giu.20;Costo Totale;99503.28
+Lug.20;Costo Totale;31597.90
+Ago.20;Costo Totale;29992.26
+Set.20;Costo Totale;44311.37
+Ott.20;Costo Totale;10190.65
+Nov.20;Costo Totale;31230.77
+Dic.20;Costo Totale;62620.53
+Gen.21;Costo Totale;10830.08
+Feb.21;Costo Totale;3871.75
+Mar.21;Costo Totale;80521.82
+Apr.21;Costo Totale;359.83
+Mag.21;Costo Totale;289953.64
+Giu.21;Costo Totale;55586.18
+Lug.21;Costo Totale;43175.46
+Set.21;Costo Totale;60030.20
+Ott.21;Costo Totale;25696.84
+Nov.21;Costo Totale;66706.58
+Dic.21;Costo Totale;84422.65
+Gen.22;Costo Totale;9219.20
+Feb.22;Costo Totale;40248.70
+Mar.22;Costo Totale;58108.74
+Apr.22;Costo Totale;33713.72
+Mag.22;Costo Totale;8898.23
+Giu.22;Costo Totale;136324.74
+Lug.22;Costo Totale;12610.83
+Ago.22;Costo Totale;34012.75
+Set.22;Costo Totale;93819.98
+Ott.22;Costo Totale;27209.50
+Nov.22;Costo Totale;106850.37
+Dic.22;Costo Totale;88643.60
+Gen.23;Costo Totale;9885.88
+Feb.23;Costo Totale;24065.90
+Mar.23;Costo Totale;136539.69
+Apr.23;Costo Totale;26562.20
+Mag.23;Costo Totale;55986.70
+Giu.23;Costo Totale;47551.82
+Lug.23;Costo Totale;87986.88
+Ago.23;Costo Totale;9225.55
+Set.23;Costo Totale;210800.55
+Ott.23;Costo Totale;2808.35
+Nov.23;Costo Totale;26966.93
+Dic.23;Costo Totale;70145.31
+Gen.24;Costo Totale;9045.55
+Feb.24;Costo Totale;5967.34
+Mar.24;Costo Totale;16020.56
+Apr.24;Costo Totale;8868.58
+Mag.24;Costo Totale;7312.50
+Giu.24;Costo Totale;78801.78
+Lug.24;Costo Totale;10022.02
+Ago.24;Costo Totale;17817.77
+Set.24;Costo Totale;60867.57
+Ott.24;Costo Totale;5690.75
+Nov.24;Costo Totale;120086.86
+Dic.24;Costo Totale;58046.10
+Gen.25;Costo Totale;7182.44
+Feb.25;Costo Totale;30873.66
+Mar.25;Costo Totale;28878.82
+Apr.25;Costo Totale;18675.74
+Mag.25;Costo Totale;122497.27
+Giu.25;Costo Totale;82571.39
+Lug.25;Costo Totale;36270.48
+Ago.25;Costo Totale;6825.85
+Set.25;Costo Totale;79569.80
+Ott.25;Costo Totale;72877.63
+Gen.20;Costo Medio Cause;598.28
+Feb.20;Costo Medio Cause;3577.97
+Mar.20;Costo Medio Cause;1282.20
+Apr.20;Costo Medio Cause;1014.10
+Mag.20;Costo Medio Cause;2675.84
+Giu.20;Costo Medio Cause;33167.76
+Lug.20;Costo Medio Cause;15798.95
+Ago.20;Costo Medio Cause;29992.26
+Set.20;Costo Medio Cause;8862.27
+Ott.20;Costo Medio Cause;3396.88
+Nov.20;Costo Medio Cause;15615.38
+Dic.20;Costo Medio Cause;10436.75
+Gen.21;Costo Medio Cause;2707.52
+Feb.21;Costo Medio Cause;774.35
+Mar.21;Costo Medio Cause;26840.61
+Apr.21;Costo Medio Cause;71.97
+Mag.21;Costo Medio Cause;289953.64
+Giu.21;Costo Medio Cause;27793.09
+Lug.21;Costo Medio Cause;8635.09
+Set.21;Costo Medio Cause;15007.55
+Ott.21;Costo Medio Cause;12848.42
+Nov.21;Costo Medio Cause;8338.32
+Dic.21;Costo Medio Cause;84422.65
+Gen.22;Costo Medio Cause;3073.07
+Feb.22;Costo Medio Cause;5749.81
+Mar.22;Costo Medio Cause;8301.25
+Apr.22;Costo Medio Cause;6742.74
+Mag.22;Costo Medio Cause;2224.56
+Giu.22;Costo Medio Cause;34081.19
+Lug.22;Costo Medio Cause;12610.83
+Ago.22;Costo Medio Cause;11337.58
+Set.22;Costo Medio Cause;46909.99
+Ott.22;Costo Medio Cause;5441.90
+Nov.22;Costo Medio Cause;106850.37
+Dic.22;Costo Medio Cause;44321.80
+Gen.23;Costo Medio Cause;9885.88
+Feb.23;Costo Medio Cause;6016.47
+Mar.23;Costo Medio Cause;45513.23
+Apr.23;Costo Medio Cause;6640.55
+Mag.23;Costo Medio Cause;27993.35
+Giu.23;Costo Medio Cause;7925.30
+Lug.23;Costo Medio Cause;29328.96
+Ago.23;Costo Medio Cause;9225.55
+Set.23;Costo Medio Cause;210800.55
+Ott.23;Costo Medio Cause;2808.35
+Nov.23;Costo Medio Cause;26966.93
+Dic.23;Costo Medio Cause;70145.31
+Gen.24;Costo Medio Cause;9045.55
+Feb.24;Costo Medio Cause;5967.34
+Mar.24;Costo Medio Cause;16020.56
+Apr.24;Costo Medio Cause;8868.58
+Mag.24;Costo Medio Cause;7312.50
+Giu.24;Costo Medio Cause;78801.78
+Lug.24;Costo Medio Cause;10022.02
+Ago.24;Costo Medio Cause;17817.77
+Set.24;Costo Medio Cause;60867.57
+Ott.24;Costo Medio Cause;5690.75
+Nov.24;Costo Medio Cause;120086.86
+Dic.24;Costo Medio Cause;58046.10
+Gen.25;Costo Medio Cause;7182.44
+Feb.25;Costo Medio Cause;30873.66
+Mar.25;Costo Medio Cause;28878.82
+Apr.25;Costo Medio Cause;18675.74
+Mag.25;Costo Medio Cause;122497.27
+Giu.25;Costo Medio Cause;82571.39
+Lug.25;Costo Medio Cause;36270.48
+Ago.25;Costo Medio Cause;6825.85
+Set.25;Costo Medio Cause;79569.80
+Ott.25;Costo Medio Cause;72877.63
+Gen.20;Importo complessivo di domanda cause pendenti;47540.00
+Feb.20;Importo complessivo di domanda cause pendenti;695053.00
+Mar.20;Importo complessivo di domanda cause pendenti;284188.00
+Apr.20;Importo complessivo di domanda cause pendenti;75998.00
+Mag.20;Importo complessivo di domanda cause pendenti;606437.00
+Giu.20;Importo complessivo di domanda cause pendenti;137907.00
+Lug.20;Importo complessivo di domanda cause pendenti;81900.00
+Set.20;Importo complessivo di domanda cause pendenti;745452.00
+Ott.20;Importo complessivo di domanda cause pendenti;16605708.00
+Nov.20;Importo complessivo di domanda cause pendenti;54000.00
+Dic.20;Importo complessivo di domanda cause pendenti;2765748.00
+Gen.21;Importo complessivo di domanda cause pendenti;39498.00
+Feb.21;Importo complessivo di domanda cause pendenti;209930.00
+Mar.21;Importo complessivo di domanda cause pendenti;507790.00
+Apr.21;Importo complessivo di domanda cause pendenti;68372.00
+Mag.21;Importo complessivo di domanda cause pendenti;58603.00
+Giu.21;Importo complessivo di domanda cause pendenti;18809738.00
+Lug.21;Importo complessivo di domanda cause pendenti;11966725.00
+Ago.21;Importo complessivo di domanda cause pendenti;175902.00
+Set.21;Importo complessivo di domanda cause pendenti;64707.00
+Ott.21;Importo complessivo di domanda cause pendenti;484.00
+Nov.21;Importo complessivo di domanda cause pendenti;900370.00
+Gen.22;Importo complessivo di domanda cause pendenti;34324.00
+Feb.22;Importo complessivo di domanda cause pendenti;889905.00
+Mar.22;Importo complessivo di domanda cause pendenti;74448.00
+Apr.22;Importo complessivo di domanda cause pendenti;117600.00
+Mag.22;Importo complessivo di domanda cause pendenti;27020.00
+Giu.22;Importo complessivo di domanda cause pendenti;367169.00
+Ago.22;Importo complessivo di domanda cause pendenti;4700.00
+Set.22;Importo complessivo di domanda cause pendenti;372532.00
+Ott.22;Importo complessivo di domanda cause pendenti;36946.00
+Nov.22;Importo complessivo di domanda cause pendenti;25000.00
+Dic.22;Importo complessivo di domanda cause pendenti;174255.00
+Gen.23;Importo complessivo di domanda cause pendenti;20000.00
+Feb.23;Importo complessivo di domanda cause pendenti;64108.00
+Mar.23;Importo complessivo di domanda cause pendenti;13420.80
+Apr.23;Importo complessivo di domanda cause pendenti;48905.58
+Giu.23;Importo complessivo di domanda cause pendenti;20044.00
+Lug.23;Importo complessivo di domanda cause pendenti;1443475.12
+Gen.20;Costo parcelle  /su importo complessivo domanda;0.08
+Feb.20;Costo parcelle  /su importo complessivo domanda;0.03
+Mar.20;Costo parcelle  /su importo complessivo domanda;0.04
+Apr.20;Costo parcelle  /su importo complessivo domanda;0.03
+Mag.20;Costo parcelle  /su importo complessivo domanda;0.02
+Giu.20;Costo parcelle  /su importo complessivo domanda;0.72
+Lug.20;Costo parcelle  /su importo complessivo domanda;0.34
+Ago.20;Costo parcelle  /su importo complessivo domanda;23992.26
+Set.20;Costo parcelle  /su importo complessivo domanda;0.06
+Ott.20;Costo parcelle  /su importo complessivo domanda;0.00
+Nov.20;Costo parcelle  /su importo complessivo domanda;0.58
+Dic.20;Costo parcelle  /su importo complessivo domanda;0.02
+Gen.21;Costo parcelle  /su importo complessivo domanda;0.09
+Feb.21;Costo parcelle  /su importo complessivo domanda;0.01
+Mar.21;Costo parcelle  /su importo complessivo domanda;0.16
+Apr.21;Costo parcelle  /su importo complessivo domanda;0.03
+Mag.21;Costo parcelle  /su importo complessivo domanda;4.95
+Giu.21;Costo parcelle  /su importo complessivo domanda;0.00
+Lug.21;Costo parcelle  /su importo complessivo domanda;0.00
+Set.21;Costo parcelle  /su importo complessivo domanda;0.94
+Ott.21;Costo parcelle  /su importo complessivo domanda;53.09
+Nov.21;Costo parcelle  /su importo complessivo domanda;0.07
+Dic.21;Costo parcelle  /su importo complessivo domanda;74909.86
+Gen.22;Costo parcelle  /su importo complessivo domanda;0.35
+Feb.22;Costo parcelle  /su importo complessivo domanda;0.05
+Mar.22;Costo parcelle  /su importo complessivo domanda;0.78
+Apr.22;Costo parcelle  /su importo complessivo domanda;0.33
+Mag.22;Costo parcelle  /su importo complessivo domanda;0.33
+Giu.22;Costo parcelle  /su importo complessivo domanda;0.37
+Lug.22;Costo parcelle  /su importo complessivo domanda;12610.84
+Ago.22;Costo parcelle  /su importo complessivo domanda;7.24
+Set.22;Costo parcelle  /su importo complessivo domanda;0.25
+Ott.22;Costo parcelle  /su importo complessivo domanda;0.74
+Nov.22;Costo parcelle  /su importo complessivo domanda;4.27
+Dic.22;Costo parcelle  /su importo complessivo domanda;0.51
+Gen.23;Costo parcelle  /su importo complessivo domanda;0.53
+Feb.23;Costo parcelle  /su importo complessivo domanda;0.38
+Mar.23;Costo parcelle  /su importo complessivo domanda;9.89
+Apr.23;Costo parcelle  /su importo complessivo domanda;0.54
+Mag.23;Costo parcelle  /su importo complessivo domanda;55986.70
+Giu.23;Costo parcelle  /su importo complessivo domanda;2.37
+Lug.23;Costo parcelle  /su importo complessivo domanda;0.06
+Ago.23;Costo parcelle  /su importo complessivo domanda;9225.55
+Set.23;Costo parcelle  /su importo complessivo domanda;210800.55
+Ott.23;Costo parcelle  /su importo complessivo domanda;4108.36
+Nov.23;Costo parcelle  /su importo complessivo domanda;26966.93
+Dic.23;Costo parcelle  /su importo complessivo domanda;70145.31
+Gen.24;Costo parcelle  /su importo complessivo domanda;6855.40
+Feb.24;Costo parcelle  /su importo complessivo domanda;11167.34
+Mar.24;Costo parcelle  /su importo complessivo domanda;16020.56
+Apr.24;Costo parcelle  /su importo complessivo domanda;8868.59
+Mag.24;Costo parcelle  /su importo complessivo domanda;7312.50
+Giu.24;Costo parcelle  /su importo complessivo domanda;78801.78
+Lug.24;Costo parcelle  /su importo complessivo domanda;10022.02
+Ago.24;Costo parcelle  /su importo complessivo domanda;17817.77
+Set.24;Costo parcelle  /su importo complessivo domanda;60867.57
+Ott.24;Costo parcelle  /su importo complessivo domanda;5690.75
+Nov.24;Costo parcelle  /su importo complessivo domanda;120086.86
+Dic.24;Costo parcelle  /su importo complessivo domanda;58046.11
+Gen.25;Costo parcelle  /su importo complessivo domanda;7182.44
+Feb.25;Costo parcelle  /su importo complessivo domanda;30873.66
+Mar.25;Costo parcelle  /su importo complessivo domanda;28878.82
+Apr.25;Costo parcelle  /su importo complessivo domanda;20755.74
+Mag.25;Costo parcelle  /su importo complessivo domanda;122497.27
+Giu.25;Costo parcelle  /su importo complessivo domanda;82181.99
+Lug.25;Costo parcelle  /su importo complessivo domanda;30583.67
+Ago.25;Costo parcelle  /su importo complessivo domanda;6825.85
+Set.25;Costo parcelle  /su importo complessivo domanda;79569.81
+Ott.25;Costo parcelle  /su importo complessivo domanda;72877.62
+Gen.20;Oneri spese legali al netto degli accantomenti;-156700.00
+Feb.20;Oneri spese legali al netto degli accantomenti;-73720.00
+Mar.20;Oneri spese legali al netto degli accantomenti;-11148.40
+Apr.20;Oneri spese legali al netto degli accantomenti;-8096.80
+Mag.20;Oneri spese legali al netto degli accantomenti;-49071.28
+Giu.20;Oneri spese legali al netto degli accantomenti;-18097.88
+Lug.20;Oneri spese legali al netto degli accantomenti;-54486.24
+Ago.20;Oneri spese legali al netto degli accantomenti;6000.00
+Set.20;Oneri spese legali al netto degli accantomenti;-338237.60
+Ott.20;Oneri spese legali al netto degli accantomenti;100380.00
+Nov.20;Oneri spese legali al netto degli accantomenti;-21684.45
+Dic.20;Oneri spese legali al netto degli accantomenti;-27955.74
+Gen.21;Oneri spese legali al netto degli accantomenti;-4400.00
+Feb.21;Oneri spese legali al netto degli accantomenti;-65900.00
+Mar.21;Oneri spese legali al netto degli accantomenti;-195950.00
+Apr.21;Oneri spese legali al netto degli accantomenti;-54142.29
+Mag.21;Oneri spese legali al netto degli accantomenti;-77794.47
+Giu.21;Oneri spese legali al netto degli accantomenti;-59734.77
+Lug.21;Oneri spese legali al netto degli accantomenti;-47134.20
+Set.21;Oneri spese legali al netto degli accantomenti;-47301.40
+Ott.21;Oneri spese legali al netto degli accantomenti;-15800.00
+Nov.21;Oneri spese legali al netto degli accantomenti;-6091.30
+Dic.21;Oneri spese legali al netto degli accantomenti;-129705.05
+Gen.22;Oneri spese legali al netto degli accantomenti;-57004.00
+Feb.22;Oneri spese legali al netto degli accantomenti;-123300.00
+Mar.22;Oneri spese legali al netto degli accantomenti;-14480.85
+Apr.22;Oneri spese legali al netto degli accantomenti;-101993.41
+Mag.22;Oneri spese legali al netto degli accantomenti;-476470.00
+Giu.22;Oneri spese legali al netto degli accantomenti;485412.16
+Lug.22;Oneri spese legali al netto degli accantomenti;-116939.93
+Set.22;Oneri spese legali al netto degli accantomenti;-142331.88
+Ott.22;Oneri spese legali al netto degli accantomenti;273988.00
+Nov.22;Oneri spese legali al netto degli accantomenti;-23878.92
+Dic.22;Oneri spese legali al netto degli accantomenti;-26633565.42
+Gen.23;Oneri spese legali al netto degli accantomenti;-730300.00
+Feb.23;Oneri spese legali al netto degli accantomenti;-5500.00
+Mar.23;Oneri spese legali al netto degli accantomenti;-15069.74
+Apr.23;Oneri spese legali al netto degli accantomenti;-12100.00
+Mag.23;Oneri spese legali al netto degli accantomenti;549.06
+Giu.23;Oneri spese legali al netto degli accantomenti;-461573.21
+Lug.23;Oneri spese legali al netto degli accantomenti;411262.77
+Set.23;Oneri spese legali al netto degli accantomenti;-40141.94
+Ott.23;Oneri spese legali al netto degli accantomenti;-67620.57
+Nov.23;Oneri spese legali al netto degli accantomenti;-65902.19
+Dic.23;Oneri spese legali al netto degli accantomenti;25563.06
+Gen.24;Oneri spese legali al netto degli accantomenti;-13640.00
+Feb.24;Oneri spese legali al netto degli accantomenti;-234208.21
+Mar.24;Oneri spese legali al netto degli accantomenti;9331.02
+Apr.24;Oneri spese legali al netto degli accantomenti;146208.60
+Mag.24;Oneri spese legali al netto degli accantomenti;-1121.60
+Giu.24;Oneri spese legali al netto degli accantomenti;1873.63
+Lug.24;Oneri spese legali al netto degli accantomenti;-16063.63
+Ago.24;Oneri spese legali al netto degli accantomenti;2028.00
+Set.24;Oneri spese legali al netto degli accantomenti;-14499.94
+Ott.24;Oneri spese legali al netto degli accantomenti;9820.00
+Nov.24;Oneri spese legali al netto degli accantomenti;16789.74
+Dic.24;Oneri spese legali al netto degli accantomenti;-1014.56
+Feb.25;Oneri spese legali al netto degli accantomenti;-920.00
+Mar.25;Oneri spese legali al netto degli accantomenti;-21334.59
+Apr.25;Oneri spese legali al netto degli accantomenti;-1904.00
+Giu.25;Oneri spese legali al netto degli accantomenti;-138586.48
+Lug.25;Oneri spese legali al netto degli accantomenti;6500.00
+Set.25;Oneri spese legali al netto degli accantomenti;-2006.48
+Ott.25;Oneri spese legali al netto degli accantomenti;1200.00
+Gen.20;Accantonato del mese _ nuovi oneri;30000.00
+Feb.20;Accantonato del mese _ nuovi oneri;40000.00
+Mag.20;Accantonato del mese _ nuovi oneri;43217.00
+Giu.20;Accantonato del mese _ nuovi oneri;7500.00
+Lug.20;Accantonato del mese _ nuovi oneri;112700.00
+Set.20;Accantonato del mese _ nuovi oneri;130000.00
+Gen.21;Accantonato del mese _ nuovi oneri;0.00
+Feb.21;Accantonato del mese _ nuovi oneri;0.00
+Mar.21;Accantonato del mese _ nuovi oneri;13200.00
+Apr.21;Accantonato del mese _ nuovi oneri;0.00
+Mag.21;Accantonato del mese _ nuovi oneri;0.00
+Giu.21;Accantonato del mese _ nuovi oneri;0.00
+Lug.21;Accantonato del mese _ nuovi oneri;3000.00
+Apr.22;Accantonato del mese _ nuovi oneri;4520.00
+Dic.22;Accantonato del mese _ nuovi oneri;30000.00
+Gen.21;Intervento consulenti esterni gestione atti liti fiscali;0.00
+Feb.21;Intervento consulenti esterni gestione atti liti fiscali;0.00
+Mar.21;Intervento consulenti esterni gestione atti liti fiscali;0.00
+Apr.21;Intervento consulenti esterni gestione atti liti fiscali;0.00
+Mag.21;Intervento consulenti esterni gestione atti liti fiscali;1.00
+Giu.21;Intervento consulenti esterni gestione atti liti fiscali;0.00
+Lug.21;Intervento consulenti esterni gestione atti liti fiscali;2.00
+Ago.21;Intervento consulenti esterni gestione atti liti fiscali;0.00
+Set.21;Intervento consulenti esterni gestione atti liti fiscali;0.00

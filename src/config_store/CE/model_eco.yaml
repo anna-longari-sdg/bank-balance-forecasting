@@ -1,0 +1,25 @@
+models:
+    - AutoARIMA:
+          season_length: 12
+          alias: arima_12
+    - AutoARIMA:
+          season_length: 1
+          alias: arima_1
+#     - MSTL:
+#           season_length: 12
+#           alias: mstl_12
+    - AutoMFLES:
+          season_length: 12
+          test_size: 8
+          alias: mfles_12
+#     - AutoTheta:
+#           season_length: 12
+#           alias: theta_12          
+#     - HistoricAverage:           
+#     - AutoCES:
+#           season_length: 12
+#           alias: ces_12    
+
+
+
+

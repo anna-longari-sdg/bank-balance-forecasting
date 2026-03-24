@@ -1,0 +1,22 @@
+cv:
+    freq: "MS" # frequency of data
+    h: 6 # Forecast horizon cv
+    n_windows: 6 # number of cv windows
+    step_size: 1 # step size between cv windows
+forecast:
+    freq: "MS" # frequency of data
+    h: 12 # Forecast horizon
+    spec:
+        - ["ECO_GRP_0"]
+        - ["ECO_GRP_0", "ECO_GRP_1"]
+        - ["ECO_GRP_0", "ECO_GRP_1", "ECO_GRP_2"]
+        - ["ECO_GRP_0", "ECO_GRP_1", "ECO_GRP_2", "ECO_COD"]
+dataset:
+    cutoff_month: "122024" # cutoff month for train/test split
+    last_date: "092025"
+driver_selection:
+    score_column: "mape_L2"
+    score_threshold: 1
+    min_statistical_importance: 0.05
+    cumulative_threshold: 0.95
+    model_selection: "xgboost" # options: lasso, lasso_lars, xgboost
