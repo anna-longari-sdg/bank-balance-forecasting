@@ -376,37 +376,63 @@ def anonymize_data(db_dir: Path):
         # Pattern di sostituzione generici
         replacements = {
             # Termini bancari specifici
-            r"comm(?:issioni?)?\b": "commissioni",
-            r"proventi": "ricavi",
-            r"brokeraggio": "intermediazione",
-            r"canone": "quota periodica",
-            r"bonifici?": "trasferimenti",
-            r"carte?\s+(?:di\s+)?(?:credito|debito)": "strumenti di pagamento",
-            r"pos\b": "terminali pagamento",
-            r"atm\b": "sportelli automatici",
-            r"acquiring": "gestione transazioni",
-            r"issuing": "emissione strumenti",
-            r"interchange\s+fee": "quota interbancaria",
-            r"merchant\s+fee": "quota esercente",
-            r"transato": "volume transazioni",
-            # Prodotti finanziari
-            r"fondi?\b": "prodotti gestiti",
-            r"titoli?\b": "strumenti finanziari",
-            r"polizze?": "prodotti assicurativi",
-            r"obbligazioni?": "strumenti di debito",
-            r"\bazion\b": "strumenti azionari",
-            # Operazioni
-            r"incasso": "riscossione",
-            r"pagamento": "versamento",
-            r"prelievo": "ritiro contante",
-            # Circuiti
-            r"bancomat": "circuito nazionale",
-            r"visa|mastercard": "circuito internazionale",
+            # r"comm(?:issioni?)?\b": "commissioni",
+            # r"proventi": "ricavi",
+            # r"brokeraggio": "intermediazione",
+            # r"canone": "quota periodica",
+            # r"bonifici?": "trasferimenti",
+            # r"carte?\s+(?:di\s+)?(?:credito|debito)": "strumenti di pagamento",
+            # r"pos\b": "terminali pagamento",            
+            # r"atm\b": "sportelli automatici"
+            r"atm\b": "ATM",
+            r"pos\b": "POS",
+            r"car\b": "CAR",
+            r"com\b": "COM",
+            # r"acquiring": "gestione transazioni",
+            # r"issuing": "emissione strumenti",
+            # r"interchange\s+fee": "quota interbancaria",
+            # r"merchant\s+fee": "quota esercente",
+            # r"transato": "volume transazioni",
+            # # Prodotti finanziari
+            # r"fondi?\b": "prodotti gestiti",
+            # r"titoli?\b": "strumenti finanziari",
+            # r"polizze?": "prodotti assicurativi",
+            # r"obbligazioni?": "strumenti di debito",
+            # r"\bazion\b": "strumenti azionari",
+            # # Operazioni
+            # r"incasso": "riscossione",
+            # r"pagamento": "versamento",
+            # r"prelievo": "ritiro contante",
+            # # Circuiti
+            # r"bancomat": "circuito nazionale",
+            # r"visa|mastercard": "circuito internazionale",
             # Altri termini generici
             r"racc ": "raccolta ",
             r"\bbanca sella\b": "banca",
             r"\bcartalis\b": "carta",
             r"\bsella\b": " ",
+            r"\bfarad\b": "fd",
+            r"\blombard\b": "ld",
+            r"\bamissima\b": "aa",
+            r"\bzurich\b": "zh",
+            r"\bhdi\b": "hd",
+            r"\balleanza\b": "az",
+            r"\bconto tuo valore\b": "ctv",
+            r"\bgbs\b": "ggg",
+            r"\bholding\b": "gruppo",
+            r"\bfabrick\b": "fb",
+            r"\baxerve\b": "ae",
+            r"\bhype\b": "online",
+            r"\bsellaextreme\b": "ee",
+            r"\bbps\b": "patrimoni",
+            r"\bspc\b": "personal credit",
+            r"\bappago\b": "dilazioni",
+            r"\bcba\b": "spec",
+            r"\bbsh\b": "uno",
+            r"\bbse\b": "due",
+            r"\bg life\b": "",
+            r"\b   \b": ""
+        
         }
 
         for pattern, replacement in replacements.items():
@@ -420,15 +446,15 @@ def anonymize_data(db_dir: Path):
     # Applica anonimizzazione a tutte le colonne _DSC
     for col in dsc_cols_drv_anag:
         # col = dsc_cols_drv_anag[0]
-        # drv_anag[col] = drv_anag[col + "_REAL"].apply(anonymize_description)
+        drv_anag[col] = drv_anag[col + "_REAL"].apply(anonymize_description)
         # drv_anag[col] = drv_anag[col + "_REAL"]
-        drv_anag[col] = drv_anag[col + "_REAL"].str.lower().str.capitalize()
+        # drv_anag[col] = drv_anag[col + "_REAL"].str.lower().str.capitalize()
 
     for col in dsc_cols_eco_anag:
         # col = dsc_cols_eco_anag[0]
-        # eco_anag[col] = eco_anag[col + "_REAL"].apply(anonymize_description)
+        eco_anag[col] = eco_anag[col + "_REAL"].apply(anonymize_description)
         # eco_anag[col] = eco_anag[col + "_REAL"]
-        eco_anag[col] = eco_anag[col + "_REAL"].str.lower().str.capitalize()
+        # eco_anag[col] = eco_anag[col + "_REAL"].str.lower().str.capitalize()
 
     logger.info("Anonimizzazione descrizioni completata!")
 
