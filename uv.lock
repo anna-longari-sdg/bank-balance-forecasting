@@ -140,6 +140,7 @@ dependencies = [
     { name = "loguru" },
     { name = "markupsafe" },
     { name = "mizani" },
+    { name = "mtranslate" },
     { name = "narwhals" },
     { name = "numpy" },
     { name = "openai" },
@@ -213,6 +214,7 @@ requires-dist = [
     { name = "loguru", specifier = ">=0.7.3" },
     { name = "markupsafe", specifier = "==3.0.2" },
     { name = "mizani", specifier = ">=0.14.3" },
+    { name = "mtranslate", specifier = ">=1.8" },
     { name = "narwhals", specifier = "==2.12.0" },
     { name = "numpy", specifier = "==2.2.6" },
     { name = "openai", specifier = "==1.92.2" },
@@ -1514,6 +1516,12 @@ sdist = { url = "https://files.pythonhosted.org/packages/a7/02/43fcf763c70e8aa8e
 wheels = [
     { url = "https://files.pythonhosted.org/packages/bd/30/b6617c74a8234ff60265373ef730eb6378ccdda74042f51f9ac936191664/mizani-0.14.4-py3-none-any.whl", hash = "sha256:ed72bf249e2a18b5dcc65cd54c7eaa5444b2cb09c7e18aafa2ab6f05f1b78620", size = 133471, upload-time = "2026-01-28T14:42:16.328Z" },
 ]
+
+[[package]]
+name = "mtranslate"
+version = "1.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/85/17/a2e5c00bf666fcbc119a44c5f20406e7be951a7d720bb48e573815a8ffc3/mtranslate-1.8.tar.gz", hash = "sha256:034f8b4cd0bb96efbb4e4d5935e2d0a45a46dadf567d60bc200d77440bba5e0c", size = 2443, upload-time = "2021-01-02T19:38:28.67Z" }
 
 [[package]]
 name = "narwhals"

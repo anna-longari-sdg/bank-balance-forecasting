@@ -5,6 +5,8 @@ import duckdb
 import pandas as pd
 from loguru import logger
 
+import mtranslate
+from concurrent.futures import ThreadPoolExecutor
 
 def load_metadata(meta_dir: Path) -> pd.DataFrame:
     meta_table = pd.read_csv(meta_dir / "meta_table.csv")
@@ -376,36 +378,10 @@ def anonymize_data(db_dir: Path):
         # Pattern di sostituzione generici
         replacements = {
             # Termini bancari specifici
-            # r"comm(?:issioni?)?\b": "commissioni",
-            # r"proventi": "ricavi",
-            # r"brokeraggio": "intermediazione",
-            # r"canone": "quota periodica",
-            # r"bonifici?": "trasferimenti",
-            # r"carte?\s+(?:di\s+)?(?:credito|debito)": "strumenti di pagamento",
-            # r"pos\b": "terminali pagamento",            
-            # r"atm\b": "sportelli automatici"
             r"atm\b": "ATM",
             r"pos\b": "POS",
             r"car\b": "CAR",
             r"com\b": "COM",
-            # r"acquiring": "gestione transazioni",
-            # r"issuing": "emissione strumenti",
-            # r"interchange\s+fee": "quota interbancaria",
-            # r"merchant\s+fee": "quota esercente",
-            # r"transato": "volume transazioni",
-            # # Prodotti finanziari
-            # r"fondi?\b": "prodotti gestiti",
-            # r"titoli?\b": "strumenti finanziari",
-            # r"polizze?": "prodotti assicurativi",
-            # r"obbligazioni?": "strumenti di debito",
-            # r"\bazion\b": "strumenti azionari",
-            # # Operazioni
-            # r"incasso": "riscossione",
-            # r"pagamento": "versamento",
-            # r"prelievo": "ritiro contante",
-            # # Circuiti
-            # r"bancomat": "circuito nazionale",
-            # r"visa|mastercard": "circuito internazionale",
             # Altri termini generici
             r"racc ": "raccolta ",
             r"\bbanca sella\b": "banca",
@@ -535,6 +511,96 @@ def reduce_db(db_path: Path, lst_eco_cod: list = [], num_eco: int = 100) -> None
 
     con_new.register("eco_drv_map_temp", eco_drv_map)
     con_new.execute("CREATE OR REPLACE TABLE ECO_DRV_MAP AS SELECT * FROM eco_drv_map_temp")
+
+    # Close connection to new db
+    con_new.close()
+
+def translate_db(db_path: Path, lang_from: str = "it", lang_to: str = "en") -> None:
+
+    con = duckdb.connect(db_path)
+    drv_anag = con.execute("SELECT * FROM DRV_ANAG").df()
+    eco_anag = con.execute("SELECT * FROM ECO_ANAG").df()
+    con.close()
+
+    dsc_cols_drv_anag = [col for col in drv_anag.columns if col.endswith('_DSC')]
+    dsc_cols_eco_anag = [col for col in eco_anag.columns if col.endswith('_DSC')]
+
+    # Rinomina le colonne _DSC in modo da non perdere i dati originali
+    for col in dsc_cols_drv_anag:
+        drv_anag[col + "_" + lang_from.upper()] = drv_anag[col]
+    for col in dsc_cols_eco_anag:
+        eco_anag[col + "_" + lang_from.upper()] = eco_anag[col]
+
+    logger.info("Traduzione con mtranslate...")
+
+    # 1. Raccogliamo TUTTI i valori unici
+    all_unique_from = set()
+    for df, cols in [(drv_anag, dsc_cols_drv_anag), (eco_anag, dsc_cols_eco_anag)]:
+        for col in cols:
+            all_unique_from.update(df[col].dropna().astype(str).unique())
+    
+    all_unique_from = list(all_unique_from)
+
+    if all_unique_from:
+        try:
+            # 2. Traduzione in PARALLELO (Threading)
+            # Usiamo 10 "operai" che lavorano insieme. Molto più veloce del ciclo normale.
+            def fetch_translation(text):
+                return mtranslate.translate(text, lang_to, lang_from)
+
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                all_unique_to = list(executor.map(fetch_translation, all_unique_from))
+
+            master_mapping = dict(zip(all_unique_from, all_unique_to))
+
+            # 3. Applicazione rapida ai DataFrame
+            for df, cols in [(drv_anag, dsc_cols_drv_anag), (eco_anag, dsc_cols_eco_anag)]:
+                for col in cols:
+                    df[f"{col}_{lang_to.upper()}"] = df[col].astype(str).map(master_mapping)
+            
+            logger.info(f"Tradotti {len(all_unique_from)} termini unici in parallelo.")
+
+        except Exception as e:
+            logger.error(f"Errore nella traduzione parallela: {e}")
+
+    # Create and connect to a new db
+    con_new = duckdb.connect(db_path)
+
+    # Create and populate tables in the new database
+    con_new.register("drv_anag_temp", drv_anag)
+    con_new.execute("CREATE OR REPLACE TABLE DRV_ANAG AS SELECT * FROM drv_anag_temp")
+
+    con_new.register("eco_anag_temp", eco_anag)
+    con_new.execute("CREATE OR REPLACE TABLE ECO_ANAG AS SELECT * FROM eco_anag_temp")
+
+    # Close connection to new db
+    con_new.close()
+
+def select_lang_db(db_path: Path, lang: str = "it") -> None:
+
+    con = duckdb.connect(db_path)
+    drv_anag = con.execute("SELECT * FROM DRV_ANAG").df()
+    eco_anag = con.execute("SELECT * FROM ECO_ANAG").df()
+    con.close()
+
+    dsc_cols_drv_anag = [col for col in drv_anag.columns if col.endswith('_DSC')]
+    dsc_cols_eco_anag = [col for col in eco_anag.columns if col.endswith('_DSC')]
+
+    # Valorizza le colonne _DSC con la lingua selezionata
+    for col in dsc_cols_drv_anag:
+        drv_anag[col] = drv_anag[col + "_" + lang.upper()]
+    for col in dsc_cols_eco_anag:
+        eco_anag[col] = eco_anag[col + "_" + lang.upper()]
+
+    # Create and connect to a new db
+    con_new = duckdb.connect(db_path)
+
+    # Create and populate tables in the new database
+    con_new.register("drv_anag_temp", drv_anag)
+    con_new.execute("CREATE OR REPLACE TABLE DRV_ANAG AS SELECT * FROM drv_anag_temp")
+
+    con_new.register("eco_anag_temp", eco_anag)
+    con_new.execute("CREATE OR REPLACE TABLE ECO_ANAG AS SELECT * FROM eco_anag_temp")
 
     # Close connection to new db
     con_new.close()

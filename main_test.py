@@ -23,7 +23,6 @@ create_mapping(db_dir=DB_DIR)
 
 # Step 2: Anonymize data
 logger.info("Anonymizing data...")
-
 anonymize_data(db_dir=DB_DIR)
 reduce_db(db_path = DB_PATH, lst_eco_cod=[
         'ECO_321', 'ECO_326', 'ECO_324', 'ECO_328', 'ECO_319', 'ECO_325',
@@ -39,9 +38,13 @@ reduce_db(db_path = DB_PATH, lst_eco_cod=[
        'ECO_045', 'ECO_130', 'ECO_043', 'ECO_238', 'ECO_089', 'ECO_239',
        'ECO_090', 'ECO_044', 'ECO_237', 'ECO_088', 'ECO_201', 'ECO_135',
        'ECO_332', 'ECO_138', 'ECO_198', 'ECO_064'])
+translate_db(db_path=DB_PATH)
+# select_lang_db(db_path=DB_PATH, lang='it')
 
 # Step 3: Initialize DataLoader
 data_loader = DataLoader(DB_PATH)
+data_loader.set_lang(lang="it")
+
 logger.info(f"Economics loaded: {data_loader.eco_anag['ECO_COD'].unique()}")
 logger.info(f"Drivers loaded: {data_loader.driver_anag['DRV_COD'].unique()}")
 

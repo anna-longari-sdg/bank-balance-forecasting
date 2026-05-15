@@ -130,6 +130,18 @@ class DataLoader:
             logger.warning(f"Could not load table {query_name}: setting to None.")
             return None
 
+    def set_lang(self, lang: str = 'it'):       
+        dsc_cols_drv_anag = [col for col in self.driver_anag.columns if col.endswith("_DSC")]
+        dsc_cols_eco_anag = [col for col in self.eco_anag.columns if col.endswith("_DSC")]
+
+        if any(col.endswith(f"DRV_DSC_{lang.upper()}") for col in self.driver_anag.columns):
+            for col in dsc_cols_drv_anag:
+                self.driver_anag[col] = self.driver_anag[f"{col}_{lang.upper()}"]
+            for col in dsc_cols_eco_anag:
+                self.eco_anag[col] = self.eco_anag[f"{col}_{lang.upper()}"]
+        else:
+            raise ValueError("Unsupported language") 
+
     def save_table(self, data_attribute: str, table_name: str | None = None):
         if not hasattr(self, data_attribute):
             raise ValueError(f"No attribute named {data_attribute}")
