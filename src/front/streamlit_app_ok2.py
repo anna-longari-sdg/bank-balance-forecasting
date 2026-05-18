@@ -25,7 +25,6 @@ from src.back.data import DataLoader
 from src.back.pipeline import *
 from src.back.reconciliation import Reconciliation
 from src.back.whatif import get_drivers_wave, propagate_shock
-from src.back.preprocess import select_lang_db
 
 # --- CONFIGURATION ---
 ROOT_DIR = Path(__file__).resolve().parents[2]
@@ -35,7 +34,7 @@ MODELS_WITH_EXO_VAR = ["arima_1", "arima_12", "mfles_12"]
 
 
 st.set_page_config(
-    page_title="Bank Balance Forecasting",
+    page_title="iLabs BankFCS",
     page_icon=":chart_with_upwards_trend:",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -85,38 +84,6 @@ st.markdown(
 )
 
 
-if "app_lang" not in st.session_state:
-    st.session_state.app_lang = "it"
-
-if "lang_toggle" not in st.session_state:
-    st.session_state.lang_toggle = st.session_state.app_lang == "en"
-
-
-def restart_app_with_language(lang):
-    select_lang_db(db_path=DB_PATH, lang=lang)
-    st.cache_data.clear()
-    st.cache_resource.clear()
-    st.session_state.clear()
-    st.session_state.app_lang = lang
-    st.session_state.lang_toggle = lang == "en"
-    st.rerun()
-
-
-top_spacer_col, top_lang_col = st.columns([0.90, 0.10])
-with top_lang_col:
-    lang_it_col, lang_toggle_col, lang_en_col = st.columns([0.8, 0.7, 0.8], gap="small")
-    with lang_it_col:
-        st.markdown("<div style='text-align:right; font-size:0.8rem; color:#6b7280; margin-top:0.35rem;'>IT</div>", unsafe_allow_html=True)
-    with lang_toggle_col:
-        st.toggle("Language switch", key="lang_toggle", label_visibility="collapsed")
-    with lang_en_col:
-        st.markdown("<div style='text-align:left; font-size:0.8rem; color:#6b7280; margin-top:0.35rem;'>EN</div>", unsafe_allow_html=True)
-
-selected_lang = "en" if st.session_state.lang_toggle else "it"
-if selected_lang != st.session_state.get("app_lang", "it"):
-    restart_app_with_language(selected_lang)
-
-
 # --- CACHE & DATA LOADING ---
 @st.cache_resource
 def get_data_loader(path):
@@ -125,10 +92,9 @@ def get_data_loader(path):
 
 
 @st.cache_data
-def load_and_prepare_budget(path, lang):
+def load_and_prepare_budget(path):
     logger.info(f"Caricamento dati {path} \n")
     loader = DataLoader(path)
-    select_lang_db(db_path=DB_PATH, lang=lang)
     ele_eco_forecasted = loader.rec_forecast_df["ECO_COD"].unique()
     loader.eco_anag = loader.eco_anag[loader.eco_anag["ECO_COD"].isin(ele_eco_forecasted)].reset_index(drop=True)
     logger.info(f"Sistemazione driver selezionati in base al modello scelto {path} \n")
@@ -185,7 +151,7 @@ def load_and_prepare_budget(path, lang):
 
 
 # Chiamata unica
-data_loader, eco_grp_budget = load_and_prepare_budget(DB_PATH, st.session_state.app_lang)
+data_loader, eco_grp_budget = load_and_prepare_budget(DB_PATH)
 if "drivers_forecast_df" not in st.session_state:
     st.session_state.drivers_forecast_df = data_loader.drivers_forecast_df.copy()
     st.session_state.rec_forecast_df = data_loader.rec_forecast_df.copy()
@@ -252,7 +218,7 @@ if "eco_anagrafica" not in st.session_state:
 
 # Plotting function with plotly
 def generate_plotly_plot(df_plot, title="", height=350):
-    """Genera un grafico Plotly interattivo con linea verticale sul cutoff."""
+    """Genera un grafico Plotly interattivo."""
     if df_plot.empty:
         return None
     mask_pred = df_plot["forecast"].notnull()
@@ -279,35 +245,6 @@ def generate_plotly_plot(df_plot, title="", height=350):
         df_plot_agg["delta"] = df_plot_agg["budget"] - df_plot_agg["forecast_adj"]
         df_plot_agg["mape"] = np.abs(df_plot_agg["delta"] / df_plot_agg["budget"] * 100)
     fig = go.Figure()
-    
-    # --- LOGICA DI CONNESSIONE ALL'ULTIMO PUNTO DI CONSUNTIVO ---
-    # Trova l'ultimo punto valido del consuntivo (Actual)
-    df_actual_valid = df_plot[df_plot["y"].notna()]
-    last_actual = df_actual_valid.iloc[[-1]] if not df_actual_valid.empty else None
-
-    # Preparazione dati per Forecast Adjusted
-    df_adj_trace = df_plot[df_plot["forecast_adj"].notna()]
-    if last_actual is not None and not df_adj_trace.empty:
-        last_actual_copy = last_actual.copy()
-        last_actual_copy["forecast_adj"] = last_actual_copy["y"]
-        df_adj_trace = pd.concat([last_actual_copy, df_adj_trace]).sort_values("ds")
-
-    # Preparazione dati per Forecast
-    df_fore_trace = df_plot[df_plot["forecast"].notna()]
-    if_last_actual_is_not_none = last_actual is not None and not df_fore_trace.empty
-    if if_last_actual_is_not_none:
-        last_actual_copy = last_actual.copy()
-        last_actual_copy["forecast"] = last_actual_copy["y"]
-        df_fore_trace = pd.concat([last_actual_copy, df_fore_trace]).sort_values("ds")
-
-    # Preparazione dati per Budget
-    df_budget_trace = df_plot[df_plot["budget"].notna()]
-    if last_actual is not None and not df_budget_trace.empty:
-        last_actual_copy = last_actual.copy()
-        last_actual_copy["budget"] = last_actual_copy["y"]
-        df_budget_trace = pd.concat([last_actual_copy, df_budget_trace]).sort_values("ds")
-    # -----------------------------------------------------------
-
     # Actual
     fig.add_trace(
         go.Scatter(x=df_plot["ds"], y=df_plot["y"], mode="lines+markers", name="Actual", line=dict(color="black", width=2), marker=dict(size=2))
@@ -315,34 +252,20 @@ def generate_plotly_plot(df_plot, title="", height=350):
     # Forecast Adjusted
     fig.add_trace(
         go.Scatter(
-            x=df_adj_trace["ds"], y=df_adj_trace["forecast_adj"], mode="lines", name="AI Adj", line=dict(color="#FF007F", width=2)
+            x=df_plot["ds"], y=df_plot["forecast_adj"], mode="lines", name="AI Adj", line=dict(color="#FF007F", width=2)
         )
     )
     # Forecast
     fig.add_trace(
-        go.Scatter(x=df_fore_trace["ds"], y=df_fore_trace["forecast"], mode="lines", name="AI", line=dict(color="orange", width=2))
+        go.Scatter(x=df_plot["ds"], y=df_plot["forecast"], mode="lines", name="AI", line=dict(color="orange", width=2))
     )
     if count_y <= 0:
         # Budget
         fig.add_trace(
             go.Scatter(
-                x=df_budget_trace["ds"], y=df_budget_trace["budget"], mode="lines", name="Budget", line=dict(color="green", width=2)
+                x=df_plot["ds"], y=df_plot["budget"], mode="lines", name="Budget", line=dict(color="green", width=2)
             )
         )
-
-    # --- AGGIUNTA DELLA LINEA VERTICALE DI CUTOFF ---
-    if not df_actual_valid.empty:
-        last_actual_date = df_actual_valid["ds"].iloc[-1]
-        fig.add_vline(
-            x=last_actual_date,
-            line_width=1.5,
-            line_dash="3px,3px",
-            # line_color="#0b3d91",
-            line_color="black",            
-            opacity=1.0
-        )
-    # ------------------------------------------------
-
     if df_plot_agg.shape[0] > 0:
         if count_y > 0:
             annotext = (
@@ -374,6 +297,7 @@ def generate_plotly_plot(df_plot, title="", height=350):
     fig.update_layout(
         title=title,
         title_y=0.999,
+        # Add an annotation as a subtitle
         annotations=[
             dict(
                 text=annotext,
@@ -381,7 +305,7 @@ def generate_plotly_plot(df_plot, title="", height=350):
                 xref="paper",
                 yref="paper",
                 x=0.5,
-                y=1.07,
+                y=1.07,  # Positions it just below the title
                 xanchor="center",
                 font=dict(size=14, color="gray"),
             )
@@ -393,6 +317,7 @@ def generate_plotly_plot(df_plot, title="", height=350):
         legend=dict(orientation="h", yanchor="top", y=-0.15, xanchor="center", x=0.5),
     )
     return fig
+
 
 # Fuction to retrieve data at level 0, 1, 2 or detail (3)
 def get_data_at_level(row, level):
@@ -1240,7 +1165,7 @@ if st.session_state.get("selected_values_df") is not None:
         if c not in ["description", "unique_id", "COEFF", "is_drv", "order"]
     }
 
-    driver_modified_values_df = pd.DataFrame(columns=["Code", "Description", "Month", "Original Value", "New Value", "Delta"])
+    driver_modified_values_df = pd.DataFrame(columns=["Code", "Description", "Month", "Original Value", "New Value"])
     modified_driver_changes = st.session_state.get("modified_driver_changes", {})
     if len(modified_driver_changes) > 0:
         driver_modified_values_df = pd.DataFrame(
@@ -1250,7 +1175,6 @@ if st.session_state.get("selected_values_df") is not None:
                     "Month": month,
                     "Original Value": values["old_value"],
                     "New Value": values["new_value"],
-                    "Delta": values["new_value"] - values["old_value"] if pd.notna(values["new_value"]) and pd.notna(values["old_value"]) else np.nan,
                 }
                 for (code, month), values in sorted(modified_driver_changes.items())
             ]
@@ -1263,15 +1187,14 @@ if st.session_state.get("selected_values_df") is not None:
                 on="Code",
                 how="left",
             )
-            [["Code", "Description", "Month", "Original Value", "New Value", "Delta"]]
+            [["Code", "Description", "Month", "Original Value", "New Value"]]
             .sort_values(by=["Code", "Month"])
             .reset_index(drop=True)
         )
         driver_modified_values_df["Original Value"] = driver_modified_values_df["Original Value"].map(format_display_number)
         driver_modified_values_df["New Value"] = driver_modified_values_df["New Value"].map(format_display_number)
-        driver_modified_values_df["Delta"] = driver_modified_values_df["Delta"].map(format_display_number)
 
-    economic_modified_values_df = pd.DataFrame(columns=["Code", "Description", "Month", "Original Value", "New Value", "Delta"])
+    economic_modified_values_df = pd.DataFrame(columns=["Code", "Description", "Month", "Original Value", "New Value"])
     modified_economic_changes = st.session_state.get("modified_economic_changes", {})
     if len(modified_economic_changes) > 0:
         economic_modified_values_df = pd.DataFrame(
@@ -1281,7 +1204,6 @@ if st.session_state.get("selected_values_df") is not None:
                     "Month": month,
                     "Original Value": values["old_value"],
                     "New Value": values["new_value"],
-                    "Delta": values["new_value"] - values["old_value"] if pd.notna(values["new_value"]) and pd.notna(values["old_value"]) else np.nan,
                 }
                 for (code, month), values in sorted(modified_economic_changes.items())
             ]
@@ -1294,13 +1216,12 @@ if st.session_state.get("selected_values_df") is not None:
                 on="Code",
                 how="left",
             )
-            [["Code", "Description", "Month", "Original Value", "New Value", "Delta"]]
+            [["Code", "Description", "Month", "Original Value", "New Value"]]
             .sort_values(by=["Code", "Month"])
             .reset_index(drop=True)
         )
         economic_modified_values_df["Original Value"] = economic_modified_values_df["Original Value"].map(format_display_number)
         economic_modified_values_df["New Value"] = economic_modified_values_df["New Value"].map(format_display_number)
-        economic_modified_values_df["Delta"] = economic_modified_values_df["Delta"].map(format_display_number)
 
     if len(modified_driver_cells) > 0 or len(modified_economic_cells) > 0:
         edit_tab, highlight_tab = st.tabs(["Edit", "Modified cells"])
@@ -1324,41 +1245,37 @@ if st.session_state.get("selected_values_df") is not None:
             )
 
         with highlight_tab:
-            left_col, right_col = st.columns(2)
+            if not driver_modified_values_df.empty:
+                st.caption(f"Modified driver values: {len(driver_modified_values_df)}")
+                st.dataframe(
+                    driver_modified_values_df,
+                    width="stretch",
+                    hide_index=True,
+                    height=220,
+                    column_config={
+                        "Code": st.column_config.TextColumn("Code", width="small"),
+                        "Description": st.column_config.TextColumn("Description", width="medium"),
+                        "Month": st.column_config.TextColumn("Month", width="small"),
+                        "Original Value": st.column_config.TextColumn("Original Value", width="small"),
+                        "New Value": st.column_config.TextColumn("New Value", width="small"),
+                    },
+                )
 
-            with left_col:
-                if not driver_modified_values_df.empty:
-                    st.caption(f"Modified driver values: {len(driver_modified_values_df)}")
-                    st.dataframe(
-                        driver_modified_values_df,
-                        width="stretch",
-                        hide_index=True,
-                        height=500,
-                        column_config={
-                            "Code": st.column_config.TextColumn("Code", width="small"),
-                            "Description": st.column_config.TextColumn("Description", width="medium"),
-                            "Month": st.column_config.TextColumn("Month", width="small"),
-                            "Original Value": st.column_config.TextColumn("Original Value", width="small"),
-                            "New Value": st.column_config.TextColumn("New Value", width="small"),
-                        },
-                    )
-
-            with right_col:
-                if not economic_modified_values_df.empty:
-                    st.caption(f"Modified economic values: {len(economic_modified_values_df)}")
-                    st.dataframe(
-                        economic_modified_values_df,
-                        width="stretch",
-                        hide_index=True,
-                        height=500,
-                        column_config={
-                            "Code": st.column_config.TextColumn("Code", width="small"),
-                            "Description": st.column_config.TextColumn("Description", width="medium"),
-                            "Month": st.column_config.TextColumn("Month", width="small"),
-                            "Original Value": st.column_config.TextColumn("Original Value", width="small"),
-                            "New Value": st.column_config.TextColumn("New Value", width="small"),
-                        },
-                    )
+            if not economic_modified_values_df.empty:
+                st.caption(f"Modified economic values: {len(economic_modified_values_df)}")
+                st.dataframe(
+                    economic_modified_values_df,
+                    width="stretch",
+                    hide_index=True,
+                    height=220,
+                    column_config={
+                        "Code": st.column_config.TextColumn("Code", width="small"),
+                        "Description": st.column_config.TextColumn("Description", width="medium"),
+                        "Month": st.column_config.TextColumn("Month", width="small"),
+                        "Original Value": st.column_config.TextColumn("Original Value", width="small"),
+                        "New Value": st.column_config.TextColumn("New Value", width="small"),
+                    },
+                )
     else:
         st.dataframe(
             df_eco_editor.style.apply(_style_eco_row, axis=None),
