@@ -24,20 +24,20 @@ create_mapping(db_dir=DB_DIR)
 # Step 2: Anonymize data
 logger.info("Anonymizing data...")
 anonymize_data(db_dir=DB_DIR)
-reduce_db(db_path = DB_PATH, lst_eco_cod=[
-        'ECO_321', 'ECO_326', 'ECO_324', 'ECO_328', 'ECO_319', 'ECO_325',
-       'ECO_318', 'ECO_240', 'ECO_246', 'ECO_252', 'ECO_248', 'ECO_253',
-       'ECO_257', 'ECO_250', 'ECO_249', 'ECO_191', 'ECO_241', 'ECO_244',
-       'ECO_279', 'ECO_117', 'ECO_171', 'ECO_170', 'ECO_137', 'ECO_160',
-       'ECO_110', 'ECO_104', 'ECO_109', 'ECO_334', 'ECO_163', 'ECO_333',
-       'ECO_149', 'ECO_129', 'ECO_162', 'ECO_308', 'ECO_084', 'ECO_106',
-       'ECO_277', 'ECO_111', 'ECO_212', 'ECO_209', 'ECO_261', 'ECO_289',
-       'ECO_066', 'ECO_258', 'ECO_290', 'ECO_071', 'ECO_151', 'ECO_142',
-       'ECO_157', 'ECO_158', 'ECO_195', 'ECO_268', 'ECO_267', 'ECO_042',
-       'ECO_123', 'ECO_029', 'ECO_145', 'ECO_223', 'ECO_188', 'ECO_144',
-       'ECO_045', 'ECO_130', 'ECO_043', 'ECO_238', 'ECO_089', 'ECO_239',
-       'ECO_090', 'ECO_044', 'ECO_237', 'ECO_088', 'ECO_201', 'ECO_135',
-       'ECO_332', 'ECO_138', 'ECO_198', 'ECO_064'])
+# reduce_db(db_path = DB_PATH, lst_eco_cod=[
+#         'ECO_321', 'ECO_326', 'ECO_324', 'ECO_328', 'ECO_319', 'ECO_325',
+#        'ECO_318', 'ECO_240', 'ECO_246', 'ECO_252', 'ECO_248', 'ECO_253',
+#        'ECO_257', 'ECO_250', 'ECO_249', 'ECO_191', 'ECO_241', 'ECO_244',
+#        'ECO_279', 'ECO_117', 'ECO_171', 'ECO_170', 'ECO_137', 'ECO_160',
+#        'ECO_110', 'ECO_104', 'ECO_109', 'ECO_334', 'ECO_163', 'ECO_333',
+#        'ECO_149', 'ECO_129', 'ECO_162', 'ECO_308', 'ECO_084', 'ECO_106',
+#        'ECO_277', 'ECO_111', 'ECO_212', 'ECO_209', 'ECO_261', 'ECO_289',
+#        'ECO_066', 'ECO_258', 'ECO_290', 'ECO_071', 'ECO_151', 'ECO_142',
+#        'ECO_157', 'ECO_158', 'ECO_195', 'ECO_268', 'ECO_267', 'ECO_042',
+#        'ECO_123', 'ECO_029', 'ECO_145', 'ECO_223', 'ECO_188', 'ECO_144',
+#        'ECO_045', 'ECO_130', 'ECO_043', 'ECO_238', 'ECO_089', 'ECO_239',
+#        'ECO_090', 'ECO_044', 'ECO_237', 'ECO_088', 'ECO_201', 'ECO_135',
+#        'ECO_332', 'ECO_138', 'ECO_198', 'ECO_064'])
 translate_db(db_path=DB_PATH)
 # select_lang_db(db_path=DB_PATH, lang='it')
 

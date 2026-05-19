@@ -185,7 +185,7 @@ def get_data_all(meta_input: pd.DataFrame, db_dir: Path, data_dir: Path):
                     120: "Estero",
                 }
                 df["ECO_GRP_1_DSC"] = df["ECO_GRP_1"].map(eco_grp_1_mapping)
-                df["ECO_GRP_2_DSC"] = df["ECO_GRP_2"].map(lambda v: f"Segmento {v}")
+                #df["ECO_GRP_2_DSC"] = df["ECO_GRP_2"].map(lambda v: f"Segmento {v}")
 
         dataframes[nm_table] = df
         logger.info(f"Loaded data shape for {nm_table}: {df.shape}")
@@ -515,7 +515,8 @@ def reduce_db(db_path: Path, lst_eco_cod: list = [], num_eco: int = 100) -> None
     # Close connection to new db
     con_new.close()
 
-def translate_db(db_path: Path, lang_from: str = "it", lang_to: str = "en") -> None:
+
+def translate_db(db_path: Path, lang_from: str = "it", lang_to: str = "en", prefix = "In ambito bancario e finanziario") -> None:
 
     con = duckdb.connect(db_path)
     drv_anag = con.execute("SELECT * FROM DRV_ANAG").df()
@@ -543,11 +544,56 @@ def translate_db(db_path: Path, lang_from: str = "it", lang_to: str = "en") -> N
 
     if all_unique_from:
         try:
-            # 2. Traduzione in PARALLELO (Threading)
-            # Usiamo 10 "operai" che lavorano insieme. Molto più veloce del ciclo normale.
-            def fetch_translation(text):
-                return mtranslate.translate(text, lang_to, lang_from)
+            # --- CONFIGURAZIONE LOGICA BANCARIA ---
+            # Glossario rigido per sigle ad altissimo rischio di errore se lasciate sole
+            # glossario_bancario = {
+            #     "car": "Car",  # Capital Adequacy Ratio
+            #     "atm": "Atm",  # Automated Teller Machine
+            #     "com": "Com",  # Commissioni / Commission
+            #     "pos": "Pos"   # Point of Sale
+            # }
+            
+            # Usiamo un separatore speciale "###" che non compare nelle descrizioni bancarie
+            prefisso = prefix + " ### "
+            separatore_sicuro = "###"
 
+            def fetch_translation(text):
+                if not text or str(text).strip() == "":
+                    return ""
+                
+                text_clean = str(text).strip()
+                text_lower = text_clean.lower()
+                
+                # # A. Controllo nel glossario rigido delle sigle
+                # if text_lower in glossario_bancario:
+                #     return glossario_bancario[text_lower]
+                
+                # B. Trucco del contesto con SEPARATORE SICURO
+                frase_da_tradurre = f"{prefisso}{text_clean}"
+                
+                try:
+                    traduzione_completa = mtranslate.translate(frase_da_tradurre, lang_to, lang_from)
+                    
+                    # Se il nostro separatore speciale è presente nella risposta, spacchiamo lì
+                    if separatore_sicuro in traduzione_completa:
+                        # Prende tutto quello che c'è dopo l'ultimo (o unico) '###'
+                        return traduzione_completa.split(separatore_sicuro, 1)[1].strip()
+                    
+                    # Fallback nel caso in cui Google per qualche motivo rimuova i cancelletti
+                    # Proviamo a ripulire cercando variazioni comuni del testo iniziale
+                    for esito_probabile in ["In banking and finance", "In the banking sector", "In banking"]:
+                        if traduzione_completa.lower().startswith(esito_probabile.lower()):
+                            # Rimuove la lunghezza del blocco iniziale trovato
+                            ancora = traduzione_completa.lower().find(esito_probabile.lower())
+                            return traduzione_completa[ancora + len(esito_probabile):].strip(" -:")
+                    
+                    return traduzione_completa
+                    
+                except Exception:
+                    # Fallback di emergenza: se la richiesta fallisce, prova la stringa pura
+                    return mtranslate.translate(text_clean, lang_to, lang_from)
+
+            # 2. Traduzione in PARALLELO (I 10 thread applicheranno la logica bancaria)
             with ThreadPoolExecutor(max_workers=10) as executor:
                 all_unique_to = list(executor.map(fetch_translation, all_unique_from))
 
@@ -558,10 +604,10 @@ def translate_db(db_path: Path, lang_from: str = "it", lang_to: str = "en") -> N
                 for col in cols:
                     df[f"{col}_{lang_to.upper()}"] = df[col].astype(str).map(master_mapping)
             
-            logger.info(f"Tradotti {len(all_unique_from)} termini unici in parallelo.")
+            logger.info(f"Tradotti {len(all_unique_from)} termini unici in chiave bancaria.")
 
         except Exception as e:
-            logger.error(f"Errore nella traduzione parallela: {e}")
+            logger.error(f"Errore nella traduzione parallela bancaria: {e}")
 
     # Create and connect to a new db
     con_new = duckdb.connect(db_path)
