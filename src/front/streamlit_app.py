@@ -170,13 +170,21 @@ def load_and_prepare_budget(path, lang):
     df_eco_budget = loader.eco_budget[loader.eco_budget["ECO_COD"].notna()].reset_index(drop=True)
     df_eco_budget = df_eco_budget.merge(loader.eco_anag, on="ECO_COD", how="inner")
     df_eco_budget["VALUE_BUDGET"] = df_eco_budget["VALUE_BUDGET"].fillna(0)
-    eco_grp_budget, _, _ = aggregate(
-        df=df_eco_budget,
-        spec=config.forecast.spec,
-        time_col="DATE_RIF",
-        target_cols=("VALUE_BUDGET",),
-    )
-    eco_grp_budget[config.forecast.spec[-1]] = eco_grp_budget["unique_id"].str.split("/", expand=True)
+    if df_eco_budget.empty:
+        logger.warning("Il dataset del budget è vuoto dopo il merge con l'anagrafica economica.")
+        eco_grp_budget = pd.DataFrame()
+        eco_grp_budget[config.forecast.spec[-1]] = pd.DataFrame(columns=config.forecast.spec[-1])
+        eco_grp_budget["unique_id"] = ""
+        eco_grp_budget["DATE_RIF"] = np.nan
+        eco_grp_budget["VALUE_BUDGET"] = np.nan
+    else:
+        eco_grp_budget, _, _ = aggregate(
+            df=df_eco_budget,
+            spec=config.forecast.spec,
+            time_col="DATE_RIF",
+            target_cols=("VALUE_BUDGET",),
+        )
+        eco_grp_budget[config.forecast.spec[-1]] = eco_grp_budget["unique_id"].str.split("/", expand=True)
     eco_grp_budget = eco_grp_budget.drop(columns=["unique_id"]).rename(columns={"VALUE_BUDGET": "budget"})
     eco_grp_budget = eco_grp_budget[eco_grp_budget["DATE_RIF"].isin(rec_forecast_df["DATE_RIF"].unique())].reset_index(
         drop=True
